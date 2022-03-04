@@ -8,29 +8,24 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    private var status = true
-    
-    private enum Colors {
-        case red
-        case yellow
-        case green
-    }
-    
-    private var currentColor = Colors.red
     
     @IBOutlet weak var redRoundLabel: UIView!
     @IBOutlet weak var yellowRoundLabel: UIView!
     @IBOutlet weak var greenRoundLabel: UIView!
+    
     @IBOutlet weak var nextButton: UIButton!
+    
+    private var currentColor:  Color = .red
+    private var lightOn: CGFloat = 1
+    private var lightOff: CGFloat = 0.3
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         nextButton.layer.cornerRadius = 10
-        redRoundLabel.layer.cornerRadius = 50
-        yellowRoundLabel.layer.cornerRadius = 50
-        greenRoundLabel.layer.cornerRadius = 50
+        redRoundLabel.layer.cornerRadius = redRoundLabel.frame.width / 2
+        yellowRoundLabel.layer.cornerRadius = yellowRoundLabel.frame.width / 2
+        greenRoundLabel.layer.cornerRadius = greenRoundLabel.frame.width / 2
         
         redRoundLabel.alpha = 0.3
         yellowRoundLabel.alpha = 0.3
@@ -41,19 +36,24 @@ class ViewController: UIViewController {
         nextButton.setTitle("NEXT", for: .normal)
         switch currentColor {
         case .red:
-            greenRoundLabel.alpha = 0.3
-            redRoundLabel.alpha = 1
-            currentColor = Colors.yellow
+            greenRoundLabel.alpha = lightOff
+            redRoundLabel.alpha = lightOn
+            currentColor = .yellow
         case.yellow:
-            redRoundLabel.alpha = 0.3
-            yellowRoundLabel.alpha = 1
-            currentColor = Colors.green
+            redRoundLabel.alpha = lightOff
+            yellowRoundLabel.alpha = lightOn
+            currentColor = .green
         case.green:
-            yellowRoundLabel.alpha = 0.3
-            greenRoundLabel.alpha = 1
-            currentColor = Colors.red
+            yellowRoundLabel.alpha = lightOff
+            greenRoundLabel.alpha = lightOn
+            currentColor = .red
         }
     }
-    
+}
+
+extension ViewController {
+    private enum Color {
+        case red, yellow, green
+    }
 }
 
